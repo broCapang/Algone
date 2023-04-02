@@ -37,6 +37,30 @@ def radix_sort(arr):
         
     return arr
 
+def rabin_karp(text, pattern):
+    # Choose a prime number as the base for the hash function
+    prime = 31
+    
+    # Calculate the hash value of the pattern
+    p_hash = 0
+    for char in pattern:
+        p_hash = p_hash * prime + ord(char)
+        
+    # Create a rolling hash for the text
+    s_hash = 0
+    for i in range(len(pattern)):
+        s_hash = s_hash * prime + ord(text[i])
+        
+    # Check if the hash values match and compare substrings
+    matches = []
+    for i in range(len(text) - len(pattern) + 1):
+        if s_hash == p_hash and text[i:i+len(pattern)] == pattern:
+            matches.append(i)
+        if i < len(text) - len(pattern):
+            s_hash = s_hash - ord(text[i]) * (prime**(len(pattern)-1))
+            s_hash = s_hash * prime + ord(text[i+len(pattern)])
+    return matches
+
 
 if __name__ == "__main__":
     a = [84, 23, 62, 44, 16, 30, 95, 51]
@@ -44,3 +68,7 @@ if __name__ == "__main__":
     radix_arr = radix_sort(a)
     print(sorted_arr)
     print(radix_arr)
+    text = "timecomplexityisfunalgorithmisfun"
+    patterns = ["algorithm", "fun"]
+    result = rabin_karp(text, patterns)
+    print(result)
