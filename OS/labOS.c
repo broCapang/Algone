@@ -24,34 +24,29 @@ int main() {
         processes[i].pid = i+1;
     }
 
-    // Sort the processes in order of arrival time (using bubble sort)
-    for (int i = 0; i < n-1; i++) {
-        for (int j = 0; j < n-i-1; j++) {
-            if (processes[j].arrival > processes[j+1].arrival) {
-                Process temp = processes[j];
-                processes[j] = processes[j+1];
-                processes[j+1] = temp;
-            }
+    // Calculate the average waiting time
+    float avg_wait=0;
+    float curr_wait=0;
+    float curr_turnaround=0;
+    float avg_turnaround=0;
+    printf("\nProcess\tBurst\tArrival\tWaiting\tTurnaround");
+    for (int i = 0; i < n; i++) {
+        if (i == 0) {
+            curr_wait = 0;
+        } else {
+            curr_wait += processes[i-1].burst;
         }
+        curr_turnaround += processes[i].burst;
+        avg_turnaround += curr_turnaround;
+        avg_wait += curr_wait;
+        printf("\n%d\t%d\t%d\t%.2f\t%.2f", processes[i].pid, processes[i].burst, processes[i].arrival, curr_wait, curr_turnaround);
     }
-
-    // Simulate the FCFS scheduling algorithm
-    int curr_time = 0;  // Current time (in CPU cycles)
-    printf("\nExecution sequence: ");
-    for (int i = 0; i < n; i++) {
-        curr_time += processes[i].burst;  // Update current time
-        printf("P%d ", processes[i].pid);  // Print process ID
-    }
-
-    // Calculate average waiting time
-    float total_wait = 0;
-    for (int i = 0; i < n; i++) {
-        total_wait += (curr_time - processes[i].arrival - processes[i].burst);
-    }
-    float avg_wait = total_wait / n;
+    avg_wait /= n;
+    avg_turnaround /= n;
 
     // Print the average waiting time
     printf("\nAverage waiting time: %.2f\n", avg_wait);
+    printf("Average turnaround time: %.2f\n", avg_turnaround);
 
     return 0;
 }
