@@ -1,8 +1,5 @@
 #include <stdio.h>
 
-// TODO : TURNAROUND TIME, WAITING TIME IN A TABLE
-
-
 // Define a struct to represent a process
 typedef struct {
     int pid;      // Process ID
