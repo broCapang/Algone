@@ -1,3 +1,5 @@
+from tries import Trie
+
 def counting_sort(arr):
     # Find the range of values in the array
     max_val = max(arr)
@@ -113,23 +115,33 @@ if __name__ == "__main__":
     a = [84, 23, 62, 44, 16, 30, 95, 51]
     sorted_arr = counting_sort(a)
     radix_arr = radix_sort(a)
+    print("running counting sort:")
     print(sorted_arr)
+    print("running radix sort:")
     print(radix_arr)
     text = "timecomplexityisfunalgorithmisfun"
-    pattern = "algorithm"
+    pattern = "fun"
     index = rabin_karp(text, pattern)
+    print("running rabin karp algorithm:")
     if index == -1:
         print("Pattern not found")
     else:
         print("Pattern found at index", index)
     index = kmp(text, pattern)
+    print("running kmp algorithm:")
     if index == -1:
         print("Pattern not found")
     else:
         print("Pattern found at index", index)
     index = finite_automata(text, pattern)
+    print("running finite automata algorithm:")
     if index == -1:
         print("Pattern not found")
     else:
         print("Pattern found at index", index)
+    trie = Trie()
+    trie.insert(text)
+    print("running trie algorithm:")
+    matches = trie.search(pattern)
+    print(matches)
 
