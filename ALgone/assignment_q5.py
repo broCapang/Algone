@@ -26,7 +26,6 @@ def calculate_letter_frequencies(text):
     for char in frequencies:
         frequencies[char] /= total_letters
     
-    print(f'frequencies:{frequencies}\n')
 
     return frequencies
 
@@ -50,7 +49,6 @@ def brute_force_decrypt(ciphertext):
 def frequency_analysis_decrypt(ciphertext):
     letter_frequencies = calculate_letter_frequencies(ciphertext)
     most_common_letter = get_highest_frequency_character(letter_frequencies)
-    print(f'Most common letter: {most_common_letter}')
     shift = (ord(most_common_letter) - ord('e')) % 26
     plaintext = ''
     for char in ciphertext:
@@ -59,6 +57,7 @@ def frequency_analysis_decrypt(ciphertext):
             plaintext += decrypted_char
         else:
             plaintext += char
+    print(f'\nletter: e')
     print(f'Shift: {shift}\tPlaintext: {plaintext}')
     shift = (ord(most_common_letter) - ord('t')) % 26
     plaintext = ''
@@ -68,6 +67,7 @@ def frequency_analysis_decrypt(ciphertext):
             plaintext += decrypted_char
         else:
             plaintext += char
+    print(f'\nletter: t')
     print(f'Shift: {shift}\tPlaintext: {plaintext}')
     shift = (ord(most_common_letter) - ord('a')) % 26
     plaintext = ''
@@ -77,6 +77,7 @@ def frequency_analysis_decrypt(ciphertext):
             plaintext += decrypted_char
         else:
             plaintext += char
+    print(f'\nletter: a')
     print(f'Shift: {shift}\tPlaintext: {plaintext}')
 
 
